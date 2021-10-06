@@ -1,7 +1,6 @@
 from typing import Final
 from random import randint
 from math import sqrt
-import queue
 
 NUM_NODES: Final = 100
 MAX_X: Final = 100
@@ -15,6 +14,7 @@ def generateNodes():
         nodes.add((f"node{i}", (x, y)))
     return list(nodes)
 
+#FIXME -- are we ok with a fully connected graph?
 def generateEdges(nodes):
     edges = set()
     for start in nodes:
@@ -26,17 +26,21 @@ def generateEdges(nodes):
 def generateGraph(edges):
     graph = {}
     for edge in edges:
+
+        #calculate euclidian distance between nodes
         node1 = edge[0]
         node2 = edge[1]
         dx2 = (node1[1][0] - node2[1][0])**2
         dy2 = (node1[1][1] - node2[1][1])**2
         distance = int(sqrt(dx2 + dy2))
+
         node1Name = node1[0]
         node2Name = node2[0]
         if node1Name not in graph: 
             graph[node1Name] = {}
             graph[node1Name][node2Name] = distance
         else: graph[node1Name][node2Name] = distance
+
         if node2Name not in graph: 
             graph[node2Name] = {}
             graph[node2Name][node1Name] = distance
@@ -45,7 +49,6 @@ def generateGraph(edges):
 
 def randomTour(graph):
     tour = []
-    graph = dict(graph)
     nodes = list(graph.keys())
     while len(nodes) > 0:
         tour.append(nodes.pop(randint(0, len(nodes) - 1)))

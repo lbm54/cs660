@@ -5,7 +5,7 @@ from math import exp
 class tsp():
     nodes = []
     edges = []
-    distances = {}
+    # distances = {}
 
     def __init__(self):
         self.nodes = setup.generateNodes()
@@ -31,6 +31,8 @@ class tsp():
             #or we don't
             else:
                 probability = self.giveMeProbability(dE, temperature)
+
+                # random() is a number between 0 and 1
                 randomNum = random()
                 if randomNum < probability:
                     current = candidate
@@ -39,6 +41,8 @@ class tsp():
         print(f"best route evaluation is: {currentEvaluation}\n")
         return current
             
+
+    # e^dE/temperature
     def giveMeProbability(self, dE, temperature):
         return exp((dE) / temperature)
 
@@ -48,9 +52,13 @@ class tsp():
     def swap(self, tour):
         randomI1 = 0
         randomI2 = 0
-        while randomI1 == randomI2:
-            randomI1 = randint(0, len(tour) - 1)
-            randomI2 = randint(0, len(tour) - 1)
+
+        randomI1 = randint(0, len(tour) - 1)
+        randomI2 = randint(0, len(tour) - 1)
+
+        if randomI1 == randomI2:
+            randomI1 = randomI1 - 1 if randomI1 > 0 else randomI1 + 1
+
         temp = tour[randomI1]
         tour[randomI1] = tour[randomI2]
         tour[randomI2] = temp
@@ -59,10 +67,4 @@ class tsp():
 tsp = tsp()
 print(tsp.sa())
 
-    
 
-
-    
-
-# tsp = tsp()
-# setup.generateNeighbors(tsp.nodes[0])
