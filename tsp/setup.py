@@ -1,3 +1,6 @@
+#Setup creates the nodes, edges and graph that we will use later, as well as
+#evaluating routes and creating an initial route.
+
 from typing import Final
 from random import randint
 from math import sqrt
@@ -6,6 +9,7 @@ NUM_NODES: Final = 100
 MAX_X: Final = 100
 MAX_Y: Final = 100
 
+#nodes are of the form (nodei, (x, y))
 def generateNodes():
     nodes = set()
     for i in range(NUM_NODES):
@@ -14,7 +18,7 @@ def generateNodes():
         nodes.add((f"node{i}", (x, y)))
     return list(nodes)
 
-#FIXME -- are we ok with a fully connected graph?
+#edges are of the form (start, end)
 def generateEdges(nodes):
     edges = set()
     for start in nodes:
@@ -23,6 +27,8 @@ def generateEdges(nodes):
 
     return list(edges)
 
+#the graph is a big dictionary filled with dictionaries of edges
+#and weights calculated by euclidian distance between nodes
 def generateGraph(edges):
     graph = {}
     for edge in edges:
@@ -47,6 +53,7 @@ def generateGraph(edges):
         else: graph[node2Name][node1Name] = distance
     return graph
 
+#walks through the graph and returns a list of cities
 def randomTour(graph):
     tour = []
     nodes = list(graph.keys())
@@ -54,6 +61,7 @@ def randomTour(graph):
         tour.append(nodes.pop(randint(0, len(nodes) - 1)))
     return tour
 
+#walks through the tour and sums up the weights between the cities
 def evaluateTour(tour, graph):
     totalDistance = 0
     for i in range(len(tour) - 2):
@@ -61,9 +69,3 @@ def evaluateTour(tour, graph):
         next = tour[i + 1]
         totalDistance = totalDistance + graph[current][next]
     return totalDistance
-
-# nodes = generateNodes()
-# edges = generateEdges(nodes)
-# graph = generateGraph(edges)
-# tour = randomTour(graph)
-# evaluateTour(tour, graph)
