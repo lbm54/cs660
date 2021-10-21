@@ -1,7 +1,7 @@
 
 
 from player import Player 
-import random
+from ai.monte_carlo import MonteCarloTreeSearch
 
 class AIPlayer(Player):
     def __init__(self, p):
@@ -12,9 +12,13 @@ class AIPlayer(Player):
     # You should *always* beat the random player, and will score points for beating weak AIs as well.
     # To launch a game using this AI, run $ python3 play.py
     def taketurn(self, board):
-        board.print()
+        # board.print()
+
+        # elf, state, alpha, beta, maximizingPlayer
+        # return mm.minimax(board, float('-inf'), float('inf'), self.playerN, 5)
         
-        return random.sample(board.actions(),1)[0]
+        # return random.sample(board.actions(),1)[0]
+
+        MonteCarloTreeSearch(board, 1000)
     def player(self):
         return self.playerN
-    
