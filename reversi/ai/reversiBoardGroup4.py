@@ -33,14 +33,14 @@ class RBoardGroup4(RBoard):
             if self.validcapture(coord, d): return True
         return False
 
-    def actions(self):
+    def actionsNoSet(self):
         # return a set of all valid moves
-        coords = set()
+        coords = []
         for r in range(8):
             for c in range(8):
                 if self.validmove((r,c)):
-                    coords.add((r,c))
-        return frozenset(coords)
+                    coords.append((r,c))
+        return coords
 
     def player(self):
         return self.nextplayer
@@ -111,3 +111,7 @@ class RBoardGroup4(RBoard):
         for c in range(8):
             print(c,end='')
         print("")
+
+
+    
+

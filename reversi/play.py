@@ -22,10 +22,13 @@ if 0 < choice < 5:
         ps[1] = HumanPlayer(1)
     else:
         ps[1] = RandomPlayer(1)
+        # ps[2] = RandomPlayer(2)
     if choice % 2 == 1:
         ps[2] = HumanPlayer(2)
     else:
         ps[2] = AIPlayer(2)
+        # ps[1] = AIPlayer(1)
+
     # Start game loop
     starttime = int(time())
     board = RBoard()

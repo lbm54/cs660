@@ -11,7 +11,7 @@ class Node:
         self.children = []
 
         self.moveThatGotUsHere = moveThatGotUsHere 
-        self.unseenMoves = currentBoard.actions()
+        self.unseenMoves = currentBoard.actionsNoSet()
         self.playerJustMoved = currentBoard.otherplayer()
     
     def selectChild(self):
@@ -74,8 +74,8 @@ class MonteCarloTreeSearch():
         self.simulate(currentNode, currentBoard)
 
     def simulate(self, currentNode, currentBoard):
-        while currentBoard.actions() != []: #while we have actions to look at
-            currentBoard.simResult(random.choice(currentBoard.actions()))
+        while currentBoard.actionsNoSet() != []: #while we have actions to look at
+            currentBoard.simResult(random.choice(currentBoard.actionsNoSet()))
         self.update(currentNode, currentBoard)
 
     def update(self, currentNode, currentBoard):
@@ -83,3 +83,5 @@ class MonteCarloTreeSearch():
         while currentNode != None: # backpropagate from the expanded node and work back to the root node
             node.updateThisNode(result) # state is terminal. Update node with result from POV of node.playerJustMoved
             node = node.parent
+
+# MonteCarloTreeSearch()

@@ -1,9 +1,52 @@
-class Strategy():
-    def isCornerPiece(index):
-        return index in [(0,0), (63, 63), (63, 0), (0, 63)]
+# from reversiBoardGroup4 import RBoardGroup4
 
-    def killerMove():
-        pass
+class Strategies():
+
+    def heuristic(self, index, board):
+        val = self.cornersCaptured(index, board)
+        val2 = self.countPieces(board)
+        # self.someotherstrategy
+        # return max(val1, val2, val3)
+        return max(val, val2)
+
+    # def __init__(self, board):
+    #     val2 = self.countPieces(board)
+    #     # self.someotherstrategy
+    #     # return max(val1, val2, val3)
+    #     return val2
+
+        #FIXME -- mobility and stability
+#     def mobility(self, board):
+#         if (board.actions() + Min Player Moves != 0)
+# 	Mobility Heuristic Value =
+# 		100 * (Max Player Moves - Min Player Moves) / (Max Player Moves + Min Player Moves)
+# else
+# 	Mobility Heuristic Value = 0
+
+# https://github.com/arminkz/Reversi/blob/master/src/game/BoardHelper.java
+
+    def countPieces(self, board):
+        return board.countpieces(board.player()) - board.countpieces(board.otherplayer())
+
+    def cornersCaptured(self, index, board):
+        list = [(0, 0), (7, 0), (0, 7), (7, 7)]
+        retVal = 0
+       
+        if index in list:
+            maxPlayer = board.player()
+            minPlayer = board.otherplayer()
+            maxPlayerCorners = 0 
+            minPlayerCorners = 0
+            for listIndex in list:
+                if board.data[listIndex[0]][listIndex[1]] == maxPlayer: maxPlayerCorners += 1
+                if board.data[listIndex[0]][listIndex[1]] == minPlayer: minPlayerCorners += 1
+            if (maxPlayerCorners + minPlayerCorners != 0):
+                retVal = 100 * (maxPlayerCorners - minPlayerCorners) / (maxPlayerCorners + minPlayerCorners)
+        return retVal
+
+
+    # def killerMove():
+    #     pass
         #does this win
 
     # another strategy
