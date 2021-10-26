@@ -4,16 +4,19 @@ from copy import deepcopy
 import PySimpleGUI as sg
 from board import Board
 
+# For a game that's 300x300 with boxes of 100x100
 GRAPH_SIZE = 300
 BOX_SIZE = GRAPH_SIZE / 3
 S_MARGIN = 5
 G_MARGIN = 20
 
+# Front end for the TTT game using PySimpleGui
 class Gui():
     youreFirst = None
     yourTurn = None
     board = None
 
+    # Inits a game board with three buttons and a 'graph', which is a drawable interface
     def __init__(self):
         self.board = Board()
         layout = [
@@ -25,7 +28,8 @@ class Gui():
         self.graph = self.window['-GRAPH-']
         self.drawGrid()
         self.startUp()
-    
+
+    # Start over function
     def reset(self):
         self.window['-GRAPH-'].erase()
         self.drawGrid()
@@ -33,6 +37,7 @@ class Gui():
         self.youreFirst = None
         self.yourTurn = None
     
+    # Starts up the GUI and waits for event listeners
     def startUp(self):
         while True:
             event, values = self.window.read()
@@ -57,11 +62,13 @@ class Gui():
 
         self.window.close()
 
+    # Creates the board for the game, that is, 9 rectangles
     def drawGrid(self):
         for row in range(3):
             for col in range(3):
                 self.graph.DrawRectangle((BOX_SIZE * row, BOX_SIZE * col), (BOX_SIZE * row + BOX_SIZE, BOX_SIZE * col + BOX_SIZE), line_color="black")
 
+    # Calls the terminal function and decides if and who won at any given point
     def checkGameOver(self):
         whoWon = self.board.terminal()
         if whoWon == 1: whoWon = "X Won"
@@ -71,6 +78,7 @@ class Gui():
         sg.Popup(f"{whoWon}! Press ok to reset", keep_on_top=True, title="Game Over")
         self.reset()
 
+    # When it's the player's turn, we will call this, potentially draw an X or an O and then pass control to the computer
     def goPlayer(self, mouse_x, mouse_y):
         self.checkGameOver()
         index = (int((mouse_y - (mouse_y % BOX_SIZE)) / BOX_SIZE),
@@ -80,6 +88,7 @@ class Gui():
         self.drawShape(index[0], index[1], self.youreFirst)
         self.goComputer()
 
+    # When it's the computer's turn, we will call minimax
     def goComputer(self):
         copy = deepcopy(self.board.currentState)
         wheretogo = self.board.minimax(copy, float("-inf"), float("inf"), not self.youreFirst)
@@ -88,6 +97,7 @@ class Gui():
             self.yourTurn = True
         self.checkGameOver()
 
+    # Draws an X or an O depending on who's first
     def drawShape(self, xIndex, yIndex, areYouX):
         xPos = xIndex * BOX_SIZE
         yPos = yIndex * BOX_SIZE
