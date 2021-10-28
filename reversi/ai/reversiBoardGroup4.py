@@ -3,7 +3,6 @@ from reversiboard import RBoard
 
 #out own board class that extends rboard
 class RBoardGroup4(RBoard):
-
     #init should copy the board
     def __init__(self, rboard):
         self.data = []
@@ -78,17 +77,17 @@ class RBoardGroup4(RBoard):
                 if self.data[r][c] == player:
                     count += 1
         return count
-    def WhoWon(self, player):
+
+    #player should be us
+    def whoWon(self, player):
         playercount = self.countpieces(player)
         othercount = self.countpieces(1 if player == 2 else 2)
         if playercount == othercount:
-            return 0 # Draw
+            return 0.5 # Draw
         elif playercount > othercount:
-            # return 1000000 # Win
             return 1
         else:
-            # return -1000000 # Loss
-            return -1
+            return 0
     def print(self):
         print(' ',end='')
         for c in range(8):
