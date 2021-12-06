@@ -8,7 +8,7 @@ First of all, this project can be run from an ios or an android emulator by down
 
 Please see the instructions, here: https://docs.flutter.dev/get-started/install/macos
 
-Naturally, that might be too much work, so, alternatively, you can find an apk I've built under build/app/outputs/flutter-apk/app-release.apk.  Feel free to plug in your phone (or an emulator) and copy and paste that apk to install and launch.  Is that too much work?  I'm sorry it's a bit of a hassle.  Let me know if you ever need an ios build.
+Naturally, that might be too much work, so, alternatively, you can find an apk I've built under ~/app-release.apk.  Feel free to plug in your phone (or an emulator) and copy and paste that apk to install and launch.  Is that too much work?  I'm sorry it's a bit of a hassle.  Let me know if you ever need an ios build.
 
 ## Description of Files
 
