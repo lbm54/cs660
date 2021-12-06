@@ -13,19 +13,19 @@ Naturally, that might be too much work, so, alternatively, you can find an apk I
 ## Description of Files
 
 Source code files are in the lib folder:
-*models
-**This folder houses descriptions of what a balanced meal should look like (for comparison), what an individual food item should be (say bread or spaghetti) and then what a meal (or a combination of food items) should look like.  
+###models
+--This folder houses descriptions of what a balanced meal should look like (for comparison), what an individual food item should be (say bread or spaghetti) and then what a meal (or a combination of food items) should look like.  
 
-*Widgets
-**Various Ui components for rendering the models on the screen.
+###Widgets
+--Various Ui components for rendering the models on the screen.
 
-*Food_list
-**A list of 20 items for use in building a meal.
+###Food_list
+--A list of 20 items for use in building a meal.
 
-*Main
-**Builds the scaffolding for the UI and renders the widgets on the screen.
+###Main
+--Builds the scaffolding for the UI and renders the widgets on the screen.
 
-*Meal Balancer
-**Houses the priority queue and does the algorithm's heavy lifting.
+###Meal Balancer
+--Houses the priority queue and does the algorithm's heavy lifting.
 
 Again, if there's any questions or any other way I can offer assistance, please let me know!
